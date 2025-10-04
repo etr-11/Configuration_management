@@ -1,3 +1,79 @@
+<h1>Проект: Виртуальная файловая система и эмулятор терминала</h1>
+
+<p><b>Общее описание:</b>  
+Данный проект реализует полностью <b>виртуальную файловую систему (MemoryVFS)</b>, работающую в оперативной памяти, 
+и <b>эмулятор терминала (VFSShell)</b>, обеспечивающий взаимодействие с этой файловой системой с помощью команд, 
+похожих на команды Unix/Linux.  
+Проект демонстрирует работу с древовидными структурами, обработку команд, управление путями, 
+а также реализацию интерактивного CLI-интерфейса.</p>
+
+<p>Система состоит из трёх основных компонентов:</p>
+<ul>
+<li><b>MemoryVFS</b> — управляет структурой виртуальных файлов и каталогов;</li>
+<li><b>VFSShell</b> — интерпретирует команды пользователя и вызывает соответствующие операции VFS;</li>
+<li><b>TerminalEmulator</b> — контролирует запуск терминала, выполнение скриптов и переход в интерактивный режим.</li>
+</ul>
+
+<hr>
+
+<h2>Пример использования</h2>
+
+<pre><code class="language-python">
+from vfs import MemoryVFS, VFSShell, TerminalEmulator, create_default_vfs
+
+# Создаём тестовую виртуальную файловую систему
+vfs = create_default_vfs()
+
+# Инициализируем оболочку
+shell = VFSShell(vfs_name="alex", vfs=vfs)
+
+# Пример работы с командами
+print(shell.get_prompt())         # alex:/$
+shell.cmd_ls([])                  # Отображает содержимое текущего каталога
+shell.cmd_cd(["/home"])           # Переходим в каталог /home
+shell.cmd_touch(["notes.txt"])    # Создаём пустой файл
+shell.cmd_ls([])                  # Проверяем содержимое /home
+shell.cmd_rev(["Привет, мир!"])   # → !рим ,тевирП
+shell.cmd_mv(["notes.txt", "memo.txt"])  # Переименовываем файл
+
+# Альтернативно — запуск терминала с исполняемым скриптом
+terminal = TerminalEmulator(vfs_name="alex", start_script="init_script.txt")
+terminal.start(interactive=True)
+</code></pre>
+
+<hr>
+
+<h2>Пример стартового скрипта <code>init_script.txt</code></h2>
+
+<pre><code class="language-bash">
+# Создание директорий и файлов
+touch /docs/readme.txt
+touch /tmp/log.txt
+
+# Навигация
+cd /docs
+ls
+rev Hello Virtual File System!
+</code></pre>
+
+<hr>
+
+<h2>Пример структуры виртуальной файловой системы</h2>
+
+<pre><code>
+/
+├── home/
+│   ├── user/
+│   │   ├── notes.txt
+│   │   └── memo.txt
+├── docs/
+│   └── readme.txt
+└── tmp/
+    └── log.txt
+</code></pre>
+
+<hr>
+
 <h2>Класс MemoryVFS</h2>
 
 <p><b>Назначение:</b> Виртуальная файловая система, работающая полностью в оперативной памяти. 
