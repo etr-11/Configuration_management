@@ -1,0 +1,28 @@
+ls
+cd /
+ls
+
+touch new1.txt
+touch folder1/new2.txt
+ls
+cd folder1
+ls
+
+mv new2.txt renamed2.txt
+ls
+mv renamed2.txt /moved2.txt
+cd /
+ls
+
+mv
+mv not_exist.txt somewhere.txt
+mv /file1.txt /folder1
+
+touch
+
+rev Hello VFS World
+uptime
+
+cd /nofolder
+cd /
+ls

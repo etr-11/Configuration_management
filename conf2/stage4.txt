@@ -1,0 +1,14 @@
+ls
+cd folder1
+ls
+cd subfolder
+ls
+cd /nofolder      
+cd /file1.txt      
+
+rev Hello world
+rev 12345
+
+uptime
+
+foobar

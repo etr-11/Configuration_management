@@ -1,0 +1,7 @@
+cd /
+ls
+cd folder1
+ls
+cd subfolder1
+ls
+cd /

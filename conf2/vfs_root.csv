@@ -1,0 +1,6 @@
+path,type,content
+/,dir,
+/file1.txt,file,aGVsbG8=       #Hello
+/folder1,dir,
+/folder1/file2.bin,file,AQIDBA==
+/folder1/subfolder1,dir,
